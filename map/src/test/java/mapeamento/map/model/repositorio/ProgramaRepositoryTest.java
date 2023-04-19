@@ -1,23 +1,16 @@
 package mapeamento.map.model.repositorio;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import mapeamento.map.model.Docente;
-
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class DocenteRepositoryTest {
+public class ProgramaRepositoryTest {
+        
     @Autowired
-    DocenteRepository repository;
+    ProgramaRepository repository;
 
     @Test
     public void deveVerificarSalvarDocente(){
@@ -99,5 +92,4 @@ public class DocenteRepositoryTest {
         Assertions.assertNotEquals(docentesOriginal, docentesDelet);
         Assertions.assertEquals(docentesEsperado, docentesDelet);
     }
-
 }

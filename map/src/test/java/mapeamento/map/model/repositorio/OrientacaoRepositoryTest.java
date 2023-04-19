@@ -1,42 +1,48 @@
 package mapeamento.map.model.repositorio;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import mapeamento.map.model.Docente;
+import mapeamento.map.model.Orientacao;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class DocenteRepositoryTest {
+public class OrientacaoRepositoryTest {
+    
     @Autowired
-    DocenteRepository repository;
+    OrientacaoRepository repository;
 
     @Test
     public void deveVerificarSalvarDocente(){
         //Cenario
-        Docente docente = Docente.builder().idDocente(1)
-                                            .idLattes("11")
-                                            .nome("teste")
-                                            .dataAtualizacao(new Date())
+        Orientacao orientacao = Orientacao.builder().idOrientacao(1)
+                                            .tipo("teste Tipo1")
+                                            .discente("teste1")
+                                            .titulo("testeTitulo1")
+                                            .ano(1)
+                                            .modalidade("testeModalidade1")
+                                            .instituicao("testeIntituição1")
+                                            .curso("testeCurso1")
+                                            .status("teste")
                                             .build();
         
         //Ação
-        Docente salvo = repository.save(docente);
+        Orientacao salvo = repository.save(orientacao);
 
         //Verificação
         Assertions.assertNotNull(salvo);
-        Assertions.assertEquals(docente.getIdDocente(), salvo.getIdDocente());
-        Assertions.assertEquals(docente.getIdLattes(), salvo.getIdLattes());
-        Assertions.assertEquals(docente.getNome(), salvo.getNome());
-        Assertions.assertEquals(docente.getDataAtualizacao(), salvo.getDataAtualizacao());
+        Assertions.assertEquals(orientacao.getIdOrientacao(), salvo.getIdOrientacao());
+        Assertions.assertEquals(orientacao.getTipo(), salvo.getTipo());
+        Assertions.assertEquals(orientacao.getDiscente(), salvo.getDiscente());
+        Assertions.assertEquals(orientacao.getTitulo(), salvo.getTitulo());
+        Assertions.assertEquals(orientacao.getAno(), salvo.getAno());
+        Assertions.assertEquals(orientacao.getModalidade(), salvo.getModalidade());
+        Assertions.assertEquals(orientacao.getInstituicao(), salvo.getInstituicao());
+        Assertions.assertEquals(orientacao.getCurso(), salvo.getCurso());
+        Assertions.assertEquals(orientacao.getStatus(), salvo.getStatus());
 
     }
 
