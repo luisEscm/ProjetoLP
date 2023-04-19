@@ -72,3 +72,14 @@ public class Docente {
     @Column(name = "data_atualizacao")
     private Date dataAtualizacao;
 }
+
+/*
+spring.datasource.url= jdbc:postgresql://localhost:5544/mapeamento
+spring.datasource.username=map
+spring.datasource.password=emento
+spring.jpa.hibernate.ddl-auto=upadate
+
+
+spring.h2.console.enabled
+spring.h2.console.path=/h2-console
+ */
