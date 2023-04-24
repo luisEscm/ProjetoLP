@@ -22,8 +22,9 @@ public class DocenteRepositoryTest {
     @Test
     public void deveVerificarSalvarDocente(){
         //Cenario
-        Docente docente = Docente.builder().idDocente(1)
-                                            .idLattes("11")
+        repository.deleteAll();
+
+        Docente docente = Docente.builder().idLattes("11")
                                             .nome("teste")
                                             .dataAtualizacao(new Date())
                                             .build();
@@ -43,13 +44,15 @@ public class DocenteRepositoryTest {
     @Test
     public void deveVerificarContarDocentes(){
         //Cenario
-        Docente docente1 = Docente.builder().idDocente(1)
+        repository.deleteAll();
+
+        Docente docente1 = Docente.builder()
                                             .idLattes("11")
                                             .nome("teste1")
                                             .dataAtualizacao(new Date())
                                             .build();
         
-        Docente docente2 = Docente.builder().idDocente(2)
+        Docente docente2 = Docente.builder()
                                             .idLattes("22")
                                             .nome("teste2")
                                             .dataAtualizacao(new Date())
@@ -67,15 +70,55 @@ public class DocenteRepositoryTest {
     }
 
     @Test
+    public void deveVerificarEncontrarTodos(){
+        //Cenario
+        repository.deleteAll();
+        Docente docente1 = Docente.builder()
+                                            .idLattes("11")
+                                            .nome("teste1")
+                                            .dataAtualizacao(new Date())
+                                            .build();
+
+        Docente docente2 = Docente.builder()
+                                            .idLattes("22")
+                                            .nome("teste2")
+                                            .dataAtualizacao(new Date())
+                                            .build();
+
+        repository.save(docente1);
+        repository.save(docente2);
+        List<Docente> docentesOriginal = new ArrayList<>();
+        docentesOriginal.add(docente1);
+        docentesOriginal.add(docente2);
+        
+        //Ação
+
+        List<Docente> docentesEncontrados = repository.findAll();
+        
+        //Verificação
+        Assertions.assertNotNull(docentesEncontrados);
+        Assertions.assertEquals(docentesOriginal.get(0).getIdDocente(), docentesEncontrados.get(0).getIdDocente());
+        Assertions.assertEquals(docentesOriginal.get(0).getIdLattes(), docentesEncontrados.get(0).getIdLattes());
+        Assertions.assertEquals(docentesOriginal.get(0).getNome(), docentesEncontrados.get(0).getNome());
+        //Assertions.assertEquals(docentesOriginal.get(0).getDataAtualizacao(), docentesEncontrados.get(0).getDataAtualizacao());
+        Assertions.assertEquals(docentesOriginal.get(1).getIdDocente(), docentesEncontrados.get(1).getIdDocente());
+        Assertions.assertEquals(docentesOriginal.get(1).getIdLattes(), docentesEncontrados.get(1).getIdLattes());
+        Assertions.assertEquals(docentesOriginal.get(1).getNome(), docentesEncontrados.get(1).getNome());
+        //Assertions.assertEquals(docentesOriginal.get(1).getDataAtualizacao(), docentesEncontrados.get(1).getDataAtualizacao());
+        //<Exception in toString(): org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role: mapeamento.map.model.Docente.orientacoes: could not initialize proxy - no Session>
+    }
+
+    @Test
     public void deveVerificarDeletarDocente(){
         //Cenario
-        Docente docente1 = Docente.builder().idDocente(1)
+        repository.deleteAll();
+        Docente docente1 = Docente.builder()
                                             .idLattes("11")
                                             .nome("teste1")
                                             .dataAtualizacao(new Date())
                                             .build();
         
-        Docente docente2 = Docente.builder().idDocente(2)
+        Docente docente2 = Docente.builder()
                                             .idLattes("22")
                                             .nome("teste2")
                                             .dataAtualizacao(new Date())
@@ -92,12 +135,13 @@ public class DocenteRepositoryTest {
 
         //Ação
         repository.delete(docente2);
-        List<Docente> docentesDelet = repository.findAll();
+        ArrayList<Docente> docentesDelet = (ArrayList<Docente>) repository.findAll();
         
         //Verificação
         Assertions.assertNotNull(docentesDelet);
         Assertions.assertNotEquals(docentesOriginal, docentesDelet);
         Assertions.assertEquals(docentesEsperado, docentesDelet);
+        //<Exception in toString(): org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role: mapeamento.map.model.Docente.orientacoes: could not initialize proxy - no Session>
     }
 
 }

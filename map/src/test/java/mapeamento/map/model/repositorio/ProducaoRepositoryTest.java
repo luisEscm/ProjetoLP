@@ -1,55 +1,91 @@
 package mapeamento.map.model.repositorio;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import mapeamento.map.model.Producao;
+
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class ProducaoRepositoryTest {
-        
+            
     @Autowired
     ProducaoRepository repository;
 
     @Test
     public void deveVerificarSalvarDocente(){
         //Cenario
-        Docente docente = Docente.builder().idDocente(1)
-                                            .idLattes("11")
-                                            .nome("teste")
-                                            .dataAtualizacao(new Date())
+        Producao producao = Producao.builder()
+                                            .tipo("teste Tipo1")
+                                            .issnSigla("testeSigla1")
+                                            .nomeLocal("testeLocal1")
+                                            .titulo("TesteTitulo1")
+                                            .ano(1)
+                                            .qualis("testeQualis1")
+                                            .percentileH5(1)
+                                            .qtdGrad(1)
+                                            .qtdMestrado(1)
+                                            .qtdDoutorado(1)
                                             .build();
         
         //Ação
-        Docente salvo = repository.save(docente);
+        Producao salvo = repository.save(producao);
 
         //Verificação
         Assertions.assertNotNull(salvo);
-        Assertions.assertEquals(docente.getIdDocente(), salvo.getIdDocente());
-        Assertions.assertEquals(docente.getIdLattes(), salvo.getIdLattes());
-        Assertions.assertEquals(docente.getNome(), salvo.getNome());
-        Assertions.assertEquals(docente.getDataAtualizacao(), salvo.getDataAtualizacao());
+        Assertions.assertEquals(producao.getIdProducao(), salvo.getIdProducao());
+        Assertions.assertEquals(producao.getTipo(), salvo.getTipo());
+        Assertions.assertEquals(producao.getIssnSigla(), salvo.getIssnSigla());
+        Assertions.assertEquals(producao.getNomeLocal(), salvo.getNomeLocal());
+        Assertions.assertEquals(producao.getTitulo(), salvo.getTitulo());
+        Assertions.assertEquals(producao.getAno(), salvo.getAno());
+        Assertions.assertEquals(producao.getQualis(), salvo.getQualis());
+        Assertions.assertEquals(producao.getPercentileH5(), salvo.getPercentileH5());
+        Assertions.assertEquals(producao.getQtdGrad(), salvo.getQtdGrad());
+        Assertions.assertEquals(producao.getQtdMestrado(), salvo.getQtdMestrado());
+        Assertions.assertEquals(producao.getQtdDoutorado(), salvo.getQtdDoutorado());
 
     }
 
     @Test
     public void deveVerificarContarDocentes(){
         //Cenario
-        Docente docente1 = Docente.builder().idDocente(1)
-                                            .idLattes("11")
-                                            .nome("teste1")
-                                            .dataAtualizacao(new Date())
-                                            .build();
+        repository.deleteAll();
+        Producao producao1 = Producao.builder()
+                                                .tipo("teste Tipo1")
+                                                .issnSigla("testeSigla1")
+                                                .nomeLocal("testeLocal1")
+                                                .titulo("TesteTitulo1")
+                                                .ano(1)
+                                                .qualis("testeQualis1")
+                                                .percentileH5(1)
+                                                .qtdGrad(1)
+                                                .qtdMestrado(1)
+                                                .qtdDoutorado(1)
+                                                .build();
         
-        Docente docente2 = Docente.builder().idDocente(2)
-                                            .idLattes("22")
-                                            .nome("teste2")
-                                            .dataAtualizacao(new Date())
-                                            .build();
+        Producao producao2 = Producao.builder()
+                                                .tipo("teste Tipo2")
+                                                .issnSigla("testeSigla2")
+                                                .nomeLocal("testeLocal2")
+                                                .titulo("TesteTitulo2")
+                                                .ano(2)
+                                                .qualis("testeQualis2")
+                                                .percentileH5(2)
+                                                .qtdGrad(2)
+                                                .qtdMestrado(2)
+                                                .qtdDoutorado(2)
+                                                .build();
         
-        repository.save(docente1);
-        repository.save(docente2);
+        repository.save(producao1);
+        repository.save(producao2);
 
         //Ação
         Long contagem = repository.count();
@@ -62,35 +98,49 @@ public class ProducaoRepositoryTest {
     @Test
     public void deveVerificarDeletarDocente(){
         //Cenario
-        Docente docente1 = Docente.builder().idDocente(1)
-                                            .idLattes("11")
-                                            .nome("teste1")
-                                            .dataAtualizacao(new Date())
-                                            .build();
+        repository.deleteAll();
+        Producao producao1 = Producao.builder()
+                                                .tipo("teste Tipo1")
+                                                .issnSigla("testeSigla1")
+                                                .nomeLocal("testeLocal1")
+                                                .titulo("TesteTitulo1")
+                                                .ano(1)
+                                                .qualis("testeQualis1")
+                                                .percentileH5(1)
+                                                .qtdGrad(1)
+                                                .qtdMestrado(1)
+                                                .qtdDoutorado(1)
+                                                .build();
         
-        Docente docente2 = Docente.builder().idDocente(2)
-                                            .idLattes("22")
-                                            .nome("teste2")
-                                            .dataAtualizacao(new Date())
-                                            .build();
+        Producao producao2 = Producao.builder()
+                                                .tipo("teste Tipo2")
+                                                .issnSigla("testeSigla2")
+                                                .nomeLocal("testeLocal2")
+                                                .titulo("TesteTitulo2")
+                                                .ano(2)
+                                                .qualis("testeQualis2")
+                                                .percentileH5(2)
+                                                .qtdGrad(2)
+                                                .qtdMestrado(2)
+                                                .qtdDoutorado(2)
+                                                .build();
 
-        repository.save(docente1);
-        repository.save(docente2);
-        List<Docente> docentesOriginal = new ArrayList<>();
-        docentesOriginal.add(docente1);
-        docentesOriginal.add(docente2);
+        repository.save(producao1);
+        repository.save(producao2);
+        List<Producao> producaosOriginal = new ArrayList<>();
+        producaosOriginal.add(producao1);
+        producaosOriginal.add(producao2);
 
-        List<Docente> docentesEsperado = new ArrayList<>();
-        docentesEsperado.add(docente1);
+        List<Producao> producaosEsperado = new ArrayList<>();
+        producaosEsperado.add(producao1);
 
         //Ação
-        repository.delete(docente2);
-        List<Docente> docentesDelet = repository.findAll();
+        repository.delete(producao2);
+        List<Producao> producaosDelet = repository.findAll();
         
         //Verificação
-        Assertions.assertNotNull(docentesDelet);
-        Assertions.assertNotEquals(docentesOriginal, docentesDelet);
-        Assertions.assertEquals(docentesEsperado, docentesDelet);
+        Assertions.assertNotNull(producaosDelet);
+        Assertions.assertNotEquals(producaosOriginal, producaosDelet);
+        Assertions.assertEquals(producaosEsperado, producaosDelet);
     }
-    
 }

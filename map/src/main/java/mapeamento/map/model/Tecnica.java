@@ -53,10 +53,10 @@ public class Tecnica {
     @Column(name = "ano")
     private Integer ano;
 
-    @Column(name = "finaciadora")
+    @Column(name = "financiadora")
     private String financiadora;
 
-    @Column(name = "outras_informacoes")
+    @Column(name = "outras_informacaoes")
     private String informacoes;
 
     @Column(name = "qtd_grad")

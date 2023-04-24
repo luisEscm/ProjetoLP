@@ -1,55 +1,55 @@
 package mapeamento.map.model.repositorio;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import mapeamento.map.model.Programa;
+
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class ProgramaRepositoryTest {
-        
+            
     @Autowired
     ProgramaRepository repository;
 
     @Test
     public void deveVerificarSalvarDocente(){
         //Cenario
-        Docente docente = Docente.builder().idDocente(1)
-                                            .idLattes("11")
-                                            .nome("teste")
-                                            .dataAtualizacao(new Date())
-                                            .build();
+        Programa programa = Programa.builder()
+                                                .nome("teste1")
+                                                .build();
         
         //Ação
-        Docente salvo = repository.save(docente);
+        Programa salvo = repository.save(programa);
 
         //Verificação
         Assertions.assertNotNull(salvo);
-        Assertions.assertEquals(docente.getIdDocente(), salvo.getIdDocente());
-        Assertions.assertEquals(docente.getIdLattes(), salvo.getIdLattes());
-        Assertions.assertEquals(docente.getNome(), salvo.getNome());
-        Assertions.assertEquals(docente.getDataAtualizacao(), salvo.getDataAtualizacao());
+        Assertions.assertEquals(programa.getIdPrograma(), salvo.getIdPrograma());
+        Assertions.assertEquals(programa.getNome(), salvo.getNome());
 
     }
 
     @Test
     public void deveVerificarContarDocentes(){
         //Cenario
-        Docente docente1 = Docente.builder().idDocente(1)
-                                            .idLattes("11")
-                                            .nome("teste1")
-                                            .dataAtualizacao(new Date())
-                                            .build();
+        repository.deleteAll();
+        Programa programa1 = Programa.builder()
+                                                .nome("teste1")
+                                                .build();
         
-        Docente docente2 = Docente.builder().idDocente(2)
-                                            .idLattes("22")
-                                            .nome("teste2")
-                                            .dataAtualizacao(new Date())
-                                            .build();
+        Programa programa2 = Programa.builder()
+                                                .nome("teste2")
+                                                .build();
         
-        repository.save(docente1);
-        repository.save(docente2);
+        repository.save(programa1);
+        repository.save(programa2);
 
         //Ação
         Long contagem = repository.count();
@@ -62,34 +62,31 @@ public class ProgramaRepositoryTest {
     @Test
     public void deveVerificarDeletarDocente(){
         //Cenario
-        Docente docente1 = Docente.builder().idDocente(1)
-                                            .idLattes("11")
+        repository.deleteAll();
+        Programa programa1 = Programa.builder()
                                             .nome("teste1")
-                                            .dataAtualizacao(new Date())
                                             .build();
         
-        Docente docente2 = Docente.builder().idDocente(2)
-                                            .idLattes("22")
+        Programa programa2 = Programa.builder()
                                             .nome("teste2")
-                                            .dataAtualizacao(new Date())
                                             .build();
 
-        repository.save(docente1);
-        repository.save(docente2);
-        List<Docente> docentesOriginal = new ArrayList<>();
-        docentesOriginal.add(docente1);
-        docentesOriginal.add(docente2);
+        repository.save(programa1);
+        repository.save(programa2);
+        List<Programa> programasOriginal = new ArrayList<>();
+        programasOriginal.add(programa1);
+        programasOriginal.add(programa2);
 
-        List<Docente> docentesEsperado = new ArrayList<>();
-        docentesEsperado.add(docente1);
+        List<Programa> programasEsperado = new ArrayList<>();
+        programasEsperado.add(programa1);
 
         //Ação
-        repository.delete(docente2);
-        List<Docente> docentesDelet = repository.findAll();
+        repository.delete(programa2);
+        List<Programa> programasDelet = repository.findAll();
         
         //Verificação
-        Assertions.assertNotNull(docentesDelet);
-        Assertions.assertNotEquals(docentesOriginal, docentesDelet);
-        Assertions.assertEquals(docentesEsperado, docentesDelet);
+        Assertions.assertNotNull(programasDelet);
+        Assertions.assertNotEquals(programasOriginal, programasDelet);
+        Assertions.assertEquals(programasEsperado, programasDelet);
     }
 }

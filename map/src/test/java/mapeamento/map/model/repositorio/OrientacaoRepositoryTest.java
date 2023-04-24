@@ -1,6 +1,10 @@
 package mapeamento.map.model.repositorio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,14 +15,14 @@ import mapeamento.map.model.Orientacao;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class OrientacaoRepositoryTest {
-    
+        
     @Autowired
     OrientacaoRepository repository;
 
     @Test
     public void deveVerificarSalvarDocente(){
         //Cenario
-        Orientacao orientacao = Orientacao.builder().idOrientacao(1)
+        Orientacao orientacao = Orientacao.builder()
                                             .tipo("teste Tipo1")
                                             .discente("teste1")
                                             .titulo("testeTitulo1")
@@ -49,20 +53,31 @@ public class OrientacaoRepositoryTest {
     @Test
     public void deveVerificarContarDocentes(){
         //Cenario
-        Docente docente1 = Docente.builder().idDocente(1)
-                                            .idLattes("11")
-                                            .nome("teste1")
-                                            .dataAtualizacao(new Date())
+        repository.deleteAll();
+        Orientacao orientacao1 = Orientacao.builder()
+                                            .tipo("teste Tipo1")
+                                            .discente("teste1")
+                                            .titulo("testeTitulo1")
+                                            .ano(1)
+                                            .modalidade("testeModalidade1")
+                                            .instituicao("testeIntituição1")
+                                            .curso("testeCurso1")
+                                            .status("teste1")
                                             .build();
         
-        Docente docente2 = Docente.builder().idDocente(2)
-                                            .idLattes("22")
-                                            .nome("teste2")
-                                            .dataAtualizacao(new Date())
+        Orientacao orientacao2 = Orientacao.builder()
+                                            .tipo("teste Tipo2")
+                                            .discente("teste2")
+                                            .titulo("testeTitulo2")
+                                            .ano(2)
+                                            .modalidade("testeModalidade2")
+                                            .instituicao("testeIntituição2")
+                                            .curso("testeCurso2")
+                                            .status("teste2")
                                             .build();
         
-        repository.save(docente1);
-        repository.save(docente2);
+        repository.save(orientacao1);
+        repository.save(orientacao2);
 
         //Ação
         Long contagem = repository.count();
@@ -75,35 +90,45 @@ public class OrientacaoRepositoryTest {
     @Test
     public void deveVerificarDeletarDocente(){
         //Cenario
-        Docente docente1 = Docente.builder().idDocente(1)
-                                            .idLattes("11")
-                                            .nome("teste1")
-                                            .dataAtualizacao(new Date())
+        repository.deleteAll();
+        Orientacao orientacao1 = Orientacao.builder()
+                                            .tipo("teste Tipo1")
+                                            .discente("teste1")
+                                            .titulo("testeTitulo1")
+                                            .ano(1)
+                                            .modalidade("testeModalidade1")
+                                            .instituicao("testeIntituição1")
+                                            .curso("testeCurso1")
+                                            .status("teste1")
                                             .build();
         
-        Docente docente2 = Docente.builder().idDocente(2)
-                                            .idLattes("22")
-                                            .nome("teste2")
-                                            .dataAtualizacao(new Date())
+        Orientacao orientacao2 = Orientacao.builder()
+                                            .tipo("teste Tipo2")
+                                            .discente("teste2")
+                                            .titulo("testeTitulo2")
+                                            .ano(2)
+                                            .modalidade("testeModalidade2")
+                                            .instituicao("testeIntituição2")
+                                            .curso("testeCurso2")
+                                            .status("teste2")
                                             .build();
 
-        repository.save(docente1);
-        repository.save(docente2);
-        List<Docente> docentesOriginal = new ArrayList<>();
-        docentesOriginal.add(docente1);
-        docentesOriginal.add(docente2);
+        repository.save(orientacao1);
+        repository.save(orientacao2);
+        List<Orientacao> orientacaosOriginal = new ArrayList<>();
+        orientacaosOriginal.add(orientacao1);
+        orientacaosOriginal.add(orientacao2);
 
-        List<Docente> docentesEsperado = new ArrayList<>();
-        docentesEsperado.add(docente1);
+        List<Orientacao> orientacaosEsperado = new ArrayList<>();
+        orientacaosEsperado.add(orientacao1);
 
         //Ação
-        repository.delete(docente2);
-        List<Docente> docentesDelet = repository.findAll();
+        repository.delete(orientacao2);
+        List<Orientacao> orientacaosDelet = repository.findAll();
         
         //Verificação
-        Assertions.assertNotNull(docentesDelet);
-        Assertions.assertNotEquals(docentesOriginal, docentesDelet);
-        Assertions.assertEquals(docentesEsperado, docentesDelet);
+        Assertions.assertNotNull(orientacaosDelet);
+        Assertions.assertNotEquals(orientacaosOriginal, orientacaosDelet);
+        Assertions.assertEquals(orientacaosEsperado, orientacaosDelet);
     }
-
 }

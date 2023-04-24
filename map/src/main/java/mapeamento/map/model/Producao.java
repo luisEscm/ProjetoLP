@@ -64,7 +64,7 @@ public class Producao {
     private String qualis;
 
     @Column(name = "percentile_ou_h5")
-    private Integer persenteliH5;
+    private Integer percentileH5;
 
     @Column(name = "qtd_grad")
     private Integer qtdGrad;

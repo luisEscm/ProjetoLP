@@ -1,54 +1,83 @@
 package mapeamento.map.model.repositorio;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import mapeamento.map.model.Tecnica;
+
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class TecnicaRepositoryTest {
-        
+            
     @Autowired
     TecnicaRepository repository;
+
     @Test
     public void deveVerificarSalvarDocente(){
         //Cenario
-        Docente docente = Docente.builder().idDocente(1)
-                                            .idLattes("11")
-                                            .nome("teste")
-                                            .dataAtualizacao(new Date())
+        Tecnica tecnica = Tecnica.builder()
+                                            .tipo("teste Tipo1")
+                                            .titulo("testeTitulo1")
+                                            .ano(1)
+                                            .financiadora("testefinanciadora1")
+                                            .informacoes("testeInformação1")
+                                            .qtdGrad(1)
+                                            .qtdMestrado(1)
+                                            .qtdDoutorado(1)
                                             .build();
         
         //Ação
-        Docente salvo = repository.save(docente);
+        Tecnica salvo = repository.save(tecnica);
 
         //Verificação
         Assertions.assertNotNull(salvo);
-        Assertions.assertEquals(docente.getIdDocente(), salvo.getIdDocente());
-        Assertions.assertEquals(docente.getIdLattes(), salvo.getIdLattes());
-        Assertions.assertEquals(docente.getNome(), salvo.getNome());
-        Assertions.assertEquals(docente.getDataAtualizacao(), salvo.getDataAtualizacao());
+        Assertions.assertEquals(tecnica.getIdTecnica(), salvo.getIdTecnica());
+        Assertions.assertEquals(tecnica.getTipo(), salvo.getTipo());
+        Assertions.assertEquals(tecnica.getTitulo(), salvo.getTitulo());
+        Assertions.assertEquals(tecnica.getAno(), salvo.getAno());
+        Assertions.assertEquals(tecnica.getFinanciadora(), salvo.getFinanciadora());
+        Assertions.assertEquals(tecnica.getInformacoes(), salvo.getInformacoes());
+        Assertions.assertEquals(tecnica.getQtdGrad(), salvo.getQtdGrad());
+        Assertions.assertEquals(tecnica.getQtdMestrado(), salvo.getQtdMestrado());
+        Assertions.assertEquals(tecnica.getQtdDoutorado(), salvo.getQtdDoutorado());
 
     }
 
     @Test
     public void deveVerificarContarDocentes(){
         //Cenario
-        Docente docente1 = Docente.builder().idDocente(1)
-                                            .idLattes("11")
-                                            .nome("teste1")
-                                            .dataAtualizacao(new Date())
+        repository.deleteAll();
+        Tecnica tecnica1 = Tecnica.builder()
+                                            .tipo("teste Tipo1")
+                                            .titulo("testeTitulo1")
+                                            .ano(1)
+                                            .financiadora("testefinanciadora1")
+                                            .informacoes("testeInformação1")
+                                            .qtdGrad(1)
+                                            .qtdMestrado(1)
+                                            .qtdDoutorado(1)
                                             .build();
         
-        Docente docente2 = Docente.builder().idDocente(2)
-                                            .idLattes("22")
-                                            .nome("teste2")
-                                            .dataAtualizacao(new Date())
+        Tecnica tecnica2 = Tecnica.builder()
+                                            .tipo("teste Tipo2")
+                                            .titulo("testeTitulo2")
+                                            .ano(2)
+                                            .financiadora("testefinanciadora2")
+                                            .informacoes("testeInformação2")
+                                            .qtdGrad(2)
+                                            .qtdMestrado(2)
+                                            .qtdDoutorado(2)
                                             .build();
         
-        repository.save(docente1);
-        repository.save(docente2);
+        repository.save(tecnica1);
+        repository.save(tecnica2);
 
         //Ação
         Long contagem = repository.count();
@@ -61,34 +90,43 @@ public class TecnicaRepositoryTest {
     @Test
     public void deveVerificarDeletarDocente(){
         //Cenario
-        Docente docente1 = Docente.builder().idDocente(1)
-                                            .idLattes("11")
-                                            .nome("teste1")
-                                            .dataAtualizacao(new Date())
+        repository.deleteAll();
+        Tecnica tecnica1 = Tecnica.builder()
+                                            .tipo("teste Tipo1")
+                                            .titulo("testeTitulo1")
+                                            .ano(1)
+                                            .financiadora("testefinanciadora1")
+                                            .informacoes("testeInformação1")
+                                            .qtdGrad(1)
+                                            .qtdMestrado(1)
+                                            .qtdDoutorado(1)
                                             .build();
         
-        Docente docente2 = Docente.builder().idDocente(2)
-                                            .idLattes("22")
-                                            .nome("teste2")
-                                            .dataAtualizacao(new Date())
+        Tecnica tecnica2 = Tecnica.builder()
+                                            .tipo("teste Tipo2")
+                                            .titulo("testeTitulo2")
+                                            .ano(2)
+                                            .financiadora("testefinanciadora2")
+                                            .informacoes("testeInformação2")
+                                            .qtdGrad(2)
+                                            .qtdMestrado(2)
+                                            .qtdDoutorado(2)
                                             .build();
+        repository.save(tecnica1);
+        List<Tecnica> tecnicasOriginal = new ArrayList<>();
+        tecnicasOriginal.add(tecnica1);
+        tecnicasOriginal.add(tecnica2);
 
-        repository.save(docente1);
-        repository.save(docente2);
-        List<Docente> docentesOriginal = new ArrayList<>();
-        docentesOriginal.add(docente1);
-        docentesOriginal.add(docente2);
-
-        List<Docente> docentesEsperado = new ArrayList<>();
-        docentesEsperado.add(docente1);
+        List<Tecnica> tecnicasEsperado = repository.findAll();
+        repository.save(tecnica2);
 
         //Ação
-        repository.delete(docente2);
-        List<Docente> docentesDelet = repository.findAll();
+        repository.delete(tecnica2);
+        List<Tecnica> tecnicasDelet = repository.findAll();
         
         //Verificação
-        Assertions.assertNotNull(docentesDelet);
-        Assertions.assertNotEquals(docentesOriginal, docentesDelet);
-        Assertions.assertEquals(docentesEsperado, docentesDelet);
+        Assertions.assertNotNull(tecnicasDelet);
+        Assertions.assertNotEquals(tecnicasOriginal, tecnicasDelet);
+        Assertions.assertEquals(tecnicasEsperado, tecnicasDelet);
     }
 }
