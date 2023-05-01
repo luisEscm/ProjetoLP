@@ -2,7 +2,6 @@ package mapeamento.map.model;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,27 +40,27 @@ public class Docente {
 
     //ManyToMany para os programas
     @ManyToMany(mappedBy = "docentes")
-    private Set<Programa> programas;
+    private List<Programa> programas;
 
 
     //ManyToMany para as tecnicas
     @ManyToMany
     @JoinTable(
         name = "docente_tecnica",
-        joinColumns = @JoinColumn(name = "id_tecnica"),
-        inverseJoinColumns = @JoinColumn(name = "id_docente")
+        joinColumns = @JoinColumn(name = "id_docente"),
+        inverseJoinColumns = @JoinColumn(name = "id_tecnica")
     )
-    private Set<Tecnica> tecnicas;
+    private List<Tecnica> tecnicas;
 
 
     //ManyToMany para as produções
     @ManyToMany
     @JoinTable(
         name = "docente_producao",
-        joinColumns = @JoinColumn(name = "id_producao"),
-        inverseJoinColumns = @JoinColumn(name = "id_docente")
+        joinColumns = @JoinColumn(name = "id_docente"),
+        inverseJoinColumns = @JoinColumn(name = "id_producao")
     )
-    private Set<Producao> producoes;
+    private List<Producao> producoes;
 
     @Column(name = "id_lattes")
     private String idLattes;

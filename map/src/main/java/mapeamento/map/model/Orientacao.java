@@ -1,6 +1,6 @@
 package mapeamento.map.model;
 
-import java.util.Set;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,12 +32,12 @@ public class Orientacao {
 
     //ManyToMany para as tecnicas
     @ManyToMany(mappedBy = "orientacoes")
-    private Set<Tecnica> tecnicas;
+    private List<Tecnica> tecnicas;
 
 
     //ManyToMany para as produções
     @ManyToMany(mappedBy = "orientacoes")
-    private Set<Producao> producoes;
+    private List<Producao> producoes;
 
     
     //ManyToOne para o docente

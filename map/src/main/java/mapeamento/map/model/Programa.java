@@ -1,6 +1,6 @@
 package mapeamento.map.model;
 
-import java.util.Set;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,10 +34,10 @@ public class Programa {
     @ManyToMany
     @JoinTable(
         name = "programa_docente",
-        joinColumns = @JoinColumn(name = "id_docente"),
-        inverseJoinColumns = @JoinColumn(name = "id_programa")
+        joinColumns = @JoinColumn(name = "id_programa"),
+        inverseJoinColumns = @JoinColumn(name = "id_docente")
     )
-    private Set<Docente> docentes;
+    private List<Docente> docentes;
 
     @Column(name = "nome")
     private String nome;

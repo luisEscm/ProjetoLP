@@ -1,6 +1,6 @@
 package mapeamento.map.model;
 
-import java.util.Set;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,17 +33,17 @@ public class Producao {
     
     //ManyToMany para os docentes
     @ManyToMany(mappedBy = "producoes")
-    private Set<Docente> docentes;
+    private List<Docente> docentes;
 
 
     //ManyToMany para as orientações
     @ManyToMany
     @JoinTable(
         name = "producao_orientacao",
-        joinColumns = @JoinColumn(name = "id_orientacao"),
-        inverseJoinColumns = @JoinColumn(name = "id_producao")
+        joinColumns = @JoinColumn(name = "id_producao"),
+        inverseJoinColumns = @JoinColumn(name = "id_orientacao")
     )
-    private Set<Orientacao> orientacoes;
+    private List<Orientacao> orientacoes;
 
     @Column(name = "tipo")
     private String tipo;
