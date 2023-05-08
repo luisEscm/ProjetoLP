@@ -20,7 +20,11 @@ public class ProgramaService {
 
     //public List<Docente> obterDocentesPrograma(Integer idPrograma){ }
 
-    //public List<Integer> obterIndices(Integer idPrograma, Integer periodo){ }
+    //public List<Integer> obterProducaoIndices(Integer idPrograma, Integer periodo){ }
 
     //public List<Orientacao> ObterOrientacoes(Integer idPrograma, Integer periodo){ }
+    
+    //public List<Producao> ObterProducoes(Integer idPrograma, Integer periodo){ }
+    
+    //public List<Tecnica> ObterTecnicas(Integer idPrograma, Integer periodo){ }
 }
